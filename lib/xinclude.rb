@@ -2,48 +2,47 @@ require "rexml/document"
 
 # A class implementing XML Inclusions (XInclude)
 #
-# See:
-# [http://www.w3.org/TR/xinclude/] for the standard
+# A pure-ruby implementation using the pure-ruby REXML libraries.
+#
+# See [http://www.w3.org/TR/xinclude/] for the spec
 class XInclude
   NAMESPACE = "http://www.w3.org/2001/XInclude"
 
-  #a function to process all the includes in an REXML-parsed XML doc
-  #returns the number of includes processed
-  def process(doc)
-    raise unless doc.is_a?(Document)
-
-    #puts  XPath.first( doc, "//xi:xinclude", {'xi' => NAMESPACE} )
-    #XPath.match( doc, "//xi:xinclude", {'xi' => NAMESPACE} ).each() { |element| processInclude(element) }
-    newDoc = Document.new(nil,doc.context.clone)
-    copyElementWithReplacements(doc, newDoc)
+  #A function to process all the includes in an REXML-parsed XML doc
+  #and return a new REXML document with XIncludes processed
+  def process(parsedXMLdocument)
+    raise unless parsedXMLdocument.is_a?(REXML::Document)
+    newDoc = REXML::Document.new(nil,parsedXMLdocument.context.clone)
+    copyElementWithReplacements(parsedXMLdocument, newDoc)
     return newDoc
- end
-
+  end
+  
+  #an internal function for deep-copying the XML document
   def copyElementWithReplacements(element, newElement)
-    raise unless element.is_a?(Element)
-    raise unless newElement.is_a?(Element)
+    raise unless element.is_a?(REXML::Element)
+    raise unless newElement.is_a?(REXML::Element)
 
     element.children.each() do |child|
-      if (child.is_a?(Element)) then
+      if (child.is_a?(REXML::Element)) then
         if (child.expanded_name == 'xi:xinclude') then
           child = processInclude(child).root
         end
-        newChild = Element.new(child)
+        newChild = REXML::Element.new(child)
         newElement.add(newChild)
         
         copyElementWithReplacements(child,newChild)
-      elsif (child.is_a?(Text))
-        newChild = Text.new(child)
+      elsif (child.is_a?(REXML::Text))
+        newChild = REXML::Text.new(child)
         newElement.add(newChild)
       end
       #puts "==" + child.to_s() + "=="
     end
   end
 
-  #a function to process a single element in an  REXML-parsed XML doc
+  #A function to process a single element in an  REXML-parsed XML doc
   #returns the new element
   def processInclude(element)
-    raise unless element.is_a?(Element)
+    raise unless element.is_a?(REXML::Element)
     raise unless element.expanded_name == 'xi:xinclude'
 
     newElement =  processURI(element.attributes["href"],
@@ -54,7 +53,10 @@ class XInclude
                              element.attributes["accept-language"])
   end
   
-  #build the inclusion. throws any errors that might occur
+  # Build the inclusion. throws any errors that might occur
+  #
+  # The encoding, accept, acceptlanguage options are ignored, but are 
+  # present to match the standard
   def processURI(href, parse, xpointer, encoding, accept, acceptlanguage)
     # catch some fatal errors specified by the spec
     raise if (parse != nil && parse != "text" && parse != "xml")
