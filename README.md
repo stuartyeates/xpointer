@@ -11,7 +11,7 @@ refacting to occur.
 * most of an xinclude implementation
 * a stub of an xpointer implementation
 
-== Thanks that don't work
+== Things that don't work
 
 === Xinclude
 * xml:lang fix up
