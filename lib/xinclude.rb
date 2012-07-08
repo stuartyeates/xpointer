@@ -1,3 +1,4 @@
+require "rexml/document"
 
 # A class implementing XML Inclusions (XInclude)
 #
@@ -5,13 +6,10 @@
 # [http://www.w3.org/TR/xinclude/] for the standard
 class XInclude
   NAMESPACE = "http://www.w3.org/2001/XInclude"
-  @replacements = {}
 
   #a function to process all the includes in an REXML-parsed XML doc
   #returns the number of includes processed
   def process(doc)
-    @replacements = {}
-    #puts doc
 
     #puts  XPath.first( doc, "//xi:xinclude", {'xi' => NAMESPACE} )
     #XPath.match( doc, "//xi:xinclude", {'xi' => NAMESPACE} ).each() { |element| processInclude(element) }
@@ -23,7 +21,7 @@ class XInclude
   def copyElementWithReplacements(element, newElement)
     element.elements.each() do |thisElement|
       if (thisElement.expanded_name == 'xi:xinclude') then
-        thisElement = processInclude(thisElement)
+        thisElement = processInclude(thisElement).root
       end
       newThisElement = Element.new(thisElement)
       newElement.add_element(newThisElement)
@@ -41,7 +39,6 @@ class XInclude
                              element.attributes["encoding"],
                              element.attributes["accept"],
                              element.attributes["accept-language"])
-    @replacements[element] = newElement.root
   end
   
   #build the inclusion. throws any errors that might occur
