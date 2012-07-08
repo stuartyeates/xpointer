@@ -21,30 +21,16 @@ TEST_DOC =
 XINCLUDEDOC="<doc xmlns:xi='http://www.w3.org/2001/XInclude'><xi:xinclude href='./test/samples/tahi.xml'/></doc>"
 
 #file = File.new( "mydoc.xml" )
-doc = REXML::Document.new(TEST_DOC)
-puts "===========full doc ==========="
-puts doc
-puts "=========== find an item ==========="
-four = XPath.first( doc, "//four[@xml:id='four']" ) 
-puts four
-puts "=========== end ==========="
+#doc = REXML::Document.new(TEST_DOC)
+#puts "===========full doc ==========="
+#puts doc
+#puts "=========== find an item ==========="
+#four = XPath.first( doc, "//four[@xml:id='four']" ) 
+#puts four
+#puts "=========== end ==========="
 
 
 doc = REXML::Document.new(XINCLUDEDOC)
 xinclude = XInclude.new()
 doc = xinclude.process(doc)
 puts doc
-
-# A class implementing XPointer
-#
-# See:
-# [http://www.w3.org/TR/xptr-xpointer/] for the standard
-# [https://en.wikipedia.org/wiki/XPointer] on Wikipedia
-#
-class XPointer
-  NAMESPACE = "http://www.w3.org/2001/05/XPointer"
-  
-
-end 
-
-
