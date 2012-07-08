@@ -1,0 +1,9 @@
+<doc xml:id='doc' xml:lang='mi'>
+  tahi, rua, toru, 
+  <one xml:id='one'>whā, rima, ono,</one>whitu
+  <two xml:id='two'>waru, iwa, tekau,</two>
+  <three xml:id='three'>tekau mā tahi,
+     <four xml:id='four'>tekau mā <five xml:id='five'/><six xml:id='six'/>rua, tekau mā toru</four>
+     tekau mā whā <seven xml:id='seven'/> t<eight xml:id='eight'/>e<nine xml:id='nine'/>k<ten xml:id='ten'/>au mā rima
+  </three>
+</doc>
