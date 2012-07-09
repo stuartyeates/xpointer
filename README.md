@@ -6,17 +6,17 @@ A ruby xpointer implementation
 This is my first attemt to write ruby, so expect some language-learning related 
 refacting to occur.
 
-== Things that work
+== Things that seem to work
 
 * most of an xinclude implementation
+* xi:fallback
 * a stub of an xpointer implementation
 
-== Things that don't work
+== Things that don't appear to work
 
 === Xinclude
 * xml:lang fix up
 * namespace issues
-* some text is left behind
 * only file:/// URLs supported
 * a trivial number and scope of unit tests
 
