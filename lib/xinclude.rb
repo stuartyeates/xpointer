@@ -1,4 +1,6 @@
 require "rexml/document"
+require "rexml/xpath"
+
 
 # A class implementing XML Inclusions (XInclude)
 #
@@ -25,7 +27,7 @@ class XInclude
     element.children.each() do |child|
       if (child.is_a?(REXML::Element)) then
         if (child.expanded_name == 'xi:xinclude') then
-          child = processInclude(child).root
+          child = processInclude(child)
         end
         newChild = REXML::Element.new(child)
         newElement.add(newChild)
@@ -44,13 +46,21 @@ class XInclude
   def processInclude(element)
     raise unless element.is_a?(REXML::Element)
     raise unless element.expanded_name == 'xi:xinclude'
-
-    newElement =  processURI(element.attributes["href"],
-                             element.attributes["parse"],
-                             element.attributes["xpointer"],
-                             element.attributes["encoding"],
-                             element.attributes["accept"],
-                             element.attributes["accept-language"])
+    
+    begin
+      newElement =  processURI(element.attributes["href"],
+                               element.attributes["parse"],
+                               element.attributes["xpointer"],
+                               element.attributes["encoding"],
+                               element.attributes["accept"],
+                               element.attributes["accept-language"]).root
+    rescue REXML::ParseException, Exception => exception
+      #      fallback = REXML::XPath.first(element, "./xi:fallback" )
+ #     fallback = element.xpath('xi:fallback').first() 
+      fallback = REXML::XPath.first(element, "xi:fallback")
+      raise Exception "XInclude Error, and no xi:fallback found" unless fallback
+      return fallback
+    end
   end
   
   # Build the inclusion. throws any errors that might occur
