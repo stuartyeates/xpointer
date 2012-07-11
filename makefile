@@ -1,6 +1,6 @@
 
 all: doc test
-	./Main.rb
+	./Main.rb < test/samples/tahi.xml 
 
 doc:
 	rdoc

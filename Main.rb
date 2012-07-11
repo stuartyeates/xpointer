@@ -30,7 +30,14 @@ XINCLUDEDOC="<doc xmlns:xi='http://www.w3.org/2001/XInclude'><xi:xinclude href='
 #puts "=========== end ==========="
 
 
-doc = REXML::Document.new(XINCLUDEDOC)
-xinclude = XInclude.new()
-doc = xinclude.process(doc)
-puts doc
+if __FILE__ == $PROGRAM_NAME
+  doc = REXML::Document.new($stdin)
+  xinclude = XInclude.new()
+  doc = xinclude.process(doc)
+  puts doc
+end
+
+#doc = REXML::Document.new(XINCLUDEDOC)
+#xinclude = XInclude.new()
+#doc = xinclude.process(doc)
+#puts doc
