@@ -1,0 +1,3 @@
+<doc xmlns:xi='http://www.w3.org/2001/XInclude'>
+<!-- deliberately malformed XML file use for testing error handling -->
+<zero xml:id='zero'>
