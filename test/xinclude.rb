@@ -53,5 +53,38 @@ class TestXinclude < Test::Unit::TestCase
     assert_not_nil(/fallback/.match(asstring))
     assert_not_nil(/XXX/.match(asstring))
   end
+
+
+   HTTPSDOC="<doc xmlns:xi='http://www.w3.org/2001/XInclude'><xi:xinclude href='https://raw.github.com/stuartyeates/xpointer/master/test/samples/tahi.xml'/></doc>"
+  
+  def test_https
+    doc = REXML::Document.new(HTTPSDOC)
+    assert_not_nil(doc)
+    xinclude = XInclude.new()
+    assert_not_nil(xinclude)
+    doc = xinclude.process(doc)
+    asstring = doc.to_s()
+    assert_not_nil(/ kore /.match(asstring))
+    assert_nil(/fallback/.match(asstring))
+  end
+  
+  def test_compare_ https
+    doc1 = REXML::Document.new(HTTPSDOC)
+    doc2 = REXML::Document.new(XINCLUDEDOC)
+    assert_not_nil(doc1)
+    assert_not_nil(doc2)
+    xinclude1 = XInclude.new()
+    xinclude2 = XInclude.new()
+    assert_not_nil(xinclude1)
+    assert_not_nil(xinclude2)
+    doc1 = xinclude.process(doc1)
+    doc2 = xinclude.process(doc2)
+    asstring1 = doc1.to_s()
+    asstring2 = doc2.to_s()
+    
+    assert_equal(asstring1,asstring2)
+    assert_equal(asstring2,asstring1)
+  end
+  
   
 end

@@ -1,5 +1,6 @@
 require "rexml/document"
 require "rexml/xpath"
+require 'open-uri'
 
 
 # A class implementing XML Inclusions (XInclude)
@@ -55,10 +56,8 @@ class XInclude
                                element.attributes["accept"],
                                element.attributes["accept-language"]).root
     rescue REXML::ParseException, Exception => exception
-      #      fallback = REXML::XPath.first(element, "./xi:fallback" )
- #     fallback = element.xpath('xi:fallback').first() 
       fallback = REXML::XPath.first(element, "xi:fallback")
-      raise Exception "XInclude Error, and no xi:fallback found" unless fallback
+      raise "XInclude Error processing '#{element.attributes["href"]}' (was '#{exception}'), and no xi:fallback found" unless fallback
       return fallback
     end
   end
@@ -73,6 +72,18 @@ class XInclude
     raise if (parse == "text" && xpointer != nil)
     # we can't do anything without an href
     raise if (href == nil)
-    doc = REXML::Document.new(File.new(href));
+
+    case href
+    when /^http:/i
+      doc = REXML::Document.new(open(href));
+    when /^https:/i
+      doc = REXML::Document.new(open(href));
+    when /^ftp:/i
+      doc = REXML::Document.new(open(href));
+    when /^file:/i
+      doc = REXML::Document.new(File.new(href));
+    else
+      doc = REXML::Document.new(File.new(href));
+    end
   end  
 end
