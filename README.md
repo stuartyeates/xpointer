@@ -13,15 +13,15 @@ refacting to occur.
 
 * most of an xinclude implementation
 * xi:fallback
-* a stub of an xpointer implementation
+* HTTP, HTTPS, FTP and file URIs supported
+* Main the processes standard in to standard out.
 
 == Things that don't appear to work
 
 === Xinclude
 * xml:lang fix up
 * namespace issues
-* only file:/// URLs supported
-* a trivial number and scope of unit tests
+* content negotiation (attributes accepted but ignored)
 
 === Xpointer
 * pretty much everything
