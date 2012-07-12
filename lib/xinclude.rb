@@ -75,15 +75,9 @@ class XInclude
     raise if (href == nil)
 
     case href
-    when /^http:/i
+    when /^http:/i,  /^https:/i, /^ftp:/i
       doc = REXML::Document.new(open(href));
-    when /^https:/i
-      doc = REXML::Document.new(open(href));
-    when /^ftp:/i
-      doc = REXML::Document.new(open(href));
-    when /^file:/i
-      doc = REXML::Document.new(File.new(href));
-    else
+    when /^file:/i, 
       doc = REXML::Document.new(File.new(href));
     end
 
