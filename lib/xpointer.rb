@@ -8,5 +8,9 @@
 class XPointer
   NAMESPACE = "http://www.w3.org/2001/05/XPointer"
   
+ def  process(document, xpointer)
+   return document
+ end
+
 
 end 

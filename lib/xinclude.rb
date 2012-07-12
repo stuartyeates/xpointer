@@ -1,6 +1,7 @@
 require "rexml/document"
 require "rexml/xpath"
 require 'open-uri'
+require 'lib/xpointer'
 
 
 # A class implementing XML Inclusions (XInclude)
@@ -85,5 +86,8 @@ class XInclude
     else
       doc = REXML::Document.new(File.new(href));
     end
+
+    p = XPointer.new()
+    doc = p.process(doc, xpointer)
   end  
 end
