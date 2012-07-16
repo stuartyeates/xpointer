@@ -19,6 +19,7 @@ refacting to occur.
 == Things that don't appear to work
 
 === Xinclude
+* xml:base URL interpretation
 * xml:lang fix up
 * namespace issues
 * content negotiation (attributes accepted but ignored)
