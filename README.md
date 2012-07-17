@@ -25,6 +25,7 @@ refacting to occur.
 * content negotiation (attributes accepted but ignored)
 
 === Xpointer
+* multiple schemes
 * pretty much everything
 * a trivial number and scope of unit tests
 
