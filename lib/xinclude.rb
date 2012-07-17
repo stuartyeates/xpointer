@@ -23,8 +23,8 @@ class XInclude
   
   #an internal function for deep-copying the XML document
   def copyElementWithReplacements(element, newElement)
-    raise unless element.is_a?(REXML::Element)
-    raise unless newElement.is_a?(REXML::Element)
+    raise "element is not an REXML::Element (#{element})" unless element.is_a?(REXML::Element)
+    raise "newElement is not an REXML::Element (#{newElement})"unless newElement.is_a?(REXML::Element)
 
     element.children.each() do |child|
       if (child.is_a?(REXML::Element)) then
@@ -37,6 +37,9 @@ class XInclude
         copyElementWithReplacements(child,newChild)
       elsif (child.is_a?(REXML::Text))
         newChild = REXML::Text.new(child)
+        newElement.add(newChild)
+      elsif (child.is_a?(REXML::Comment))
+        newChild = REXML::Comment.new(child)
         newElement.add(newChild)
       end
       #puts "==" + child.to_s() + "=="
@@ -55,7 +58,7 @@ class XInclude
                                element.attributes["xpointer"],
                                element.attributes["encoding"],
                                element.attributes["accept"],
-                               element.attributes["accept-language"]).root
+                               element.attributes["accept-language"])
     rescue REXML::ParseException, Exception => exception
       fallback = REXML::XPath.first(element, "xi:fallback")
       raise "XInclude Error processing '#{element.attributes["href"]}' (was '#{exception}'), and no xi:fallback found" unless fallback
@@ -81,7 +84,11 @@ class XInclude
       doc = REXML::Document.new(File.new(href));
     end
 
-    p = XPointer.new()
-    doc = p.process(doc, xpointer)
+    if (xpointer) then
+      p =  XPointer.new()
+      doc = p.process(doc, xpointer)
+    end
+    return doc
   end  
 end
+
