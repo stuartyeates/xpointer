@@ -44,3 +44,5 @@ these don't include functional string-range() schemes.
 * http://xmlsoft.org/index.html (C, isses discussed at http://wiki.tei-c.org/index.php/XPointer#libxml2)
 * https://code.google.com/p/xincproc/ (Java, supports SAX)
 * https://issues.apache.org/jira/browse/XERCESJ-873 (Java, no sign that the patch is likely to be applied)
+* http://xpointerlib.mozdev.org/ (javascript)
+* https://github.com/glro/xptr (javascript, includes xpath extensions?)
