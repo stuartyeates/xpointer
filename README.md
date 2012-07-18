@@ -14,8 +14,9 @@ refacting to occur.
 * most of an xinclude implementation
 * xi:fallback
 * HTTP, HTTPS, FTP and file URIs supported
-* Main the processes standard in to standard out.
+* Main the processes standard-in to standard-out.
 * xpointer element() scheme (with a handful of test cases)
+* xpointer string-range() scheme (with a handful of test cases, none spanning tags) 
 
 == Things that don't appear to work
 
@@ -27,7 +28,6 @@ refacting to occur.
 
 === Xpointer
 * multiple schemes
-* string-range scheme
 * a trivial number and scope of unit tests
 
 == The Future ==
