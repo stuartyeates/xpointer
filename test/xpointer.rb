@@ -152,6 +152,18 @@ class TestXPointer < Test::Unit::TestCase
 
   end
 
+  def test_fine_ea
+    doc = REXML::Document.new(File.new('./test/samples/tahi.xml'))
+    assert_not_nil(doc)
+    xpointer = XPointer.new()
+    assert_not_nil(xpointer)
+    doc2 = xpointer.process(doc, 'element(/4)')
+    asstring = doc2.to_s()
+    assert_not_nil(/nine/.match(asstring))
+    assert_not_nil(/>e</.match(asstring))
+
+  end
+
   def test_fine_f
     doc = REXML::Document.new(File.new('./test/samples/tahi.xml'))
     assert_not_nil(doc)
@@ -159,6 +171,43 @@ class TestXPointer < Test::Unit::TestCase
     assert_not_nil(xpointer)
     doc2 = xpointer.processElement(doc, 'element(/4/1)')
     assert_nil(doc2,"#{doc} /// #{doc2}")
+  end
+
+  def test_fine_fa
+    doc = REXML::Document.new(File.new('./test/samples/tahi.xml'))
+    assert_not_nil(doc)
+    xpointer = XPointer.new()
+    assert_not_nil(xpointer)
+    doc2 = xpointer.process(doc, 'element(/4/1)')
+    assert_nil(doc2,"#{doc} /// #{doc2}")
+  end
+
+
+  def test_string_range_a
+    doc = REXML::Document.new(File.new('./test/samples/tahi.xml'))
+    assert_not_nil(doc)
+    xpointer = XPointer.new()
+    assert_not_nil(xpointer)
+    doc2 = xpointer.process(doc, 'string-range(one,0,4)')
+    assert_equal("tahi",doc2,"#{doc} /// \"tahi\"")
+  end
+
+  def test_string_range_b
+    doc = REXML::Document.new(File.new('./test/samples/tahi.xml'))
+    assert_not_nil(doc)
+    xpointer = XPointer.new()
+    assert_not_nil(xpointer)
+    doc2 = xpointer.process(doc, 'string-range(seven,0)')
+    assert_equal("n",doc2,"#{doc} /// \"n\"")
+  end
+
+  def test_string_range_c
+    doc = REXML::Document.new(File.new('./test/samples/tahi.xml'))
+    assert_not_nil(doc)
+    xpointer = XPointer.new()
+    assert_not_nil(xpointer)
+    doc2 = xpointer.process(doc, 'string-range(one,0,13)')
+    assert_equal("tahi rua toru",doc2,"#{doc2} /// \"tahi rua toru\"")
   end
 
 
