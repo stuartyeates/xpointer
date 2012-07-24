@@ -1,6 +1,7 @@
 
 all: doc test
 	./Main.rb < test/samples/tahi.xml 
+	echo successfully built  `date`>> LOG
 
 doc:
 	rdoc

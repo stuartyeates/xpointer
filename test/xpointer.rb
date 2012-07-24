@@ -189,26 +189,7 @@ class TestXPointer < Test::Unit::TestCase
     xpointer = XPointer.new()
     assert_not_nil(xpointer)
     doc2 = xpointer.process(doc, 'string-range(one,0,4)')
-    assert_equal("tahi",doc2,"#{doc} /// \"tahi\"")
+    assert_equal("tahi",doc2[0].to_s(),"#{doc2} /// \"tahi\"")
   end
-
-  def test_string_range_b
-    doc = REXML::Document.new(File.new('./test/samples/tahi.xml'))
-    assert_not_nil(doc)
-    xpointer = XPointer.new()
-    assert_not_nil(xpointer)
-    doc2 = xpointer.process(doc, 'string-range(seven,0)')
-    assert_equal("n",doc2,"#{doc} /// \"n\"")
-  end
-
-  def test_string_range_c
-    doc = REXML::Document.new(File.new('./test/samples/tahi.xml'))
-    assert_not_nil(doc)
-    xpointer = XPointer.new()
-    assert_not_nil(xpointer)
-    doc2 = xpointer.process(doc, 'string-range(one,0,13)')
-    assert_equal("tahi rua toru",doc2,"#{doc2} /// \"tahi rua toru\"")
-  end
-
 
 end
