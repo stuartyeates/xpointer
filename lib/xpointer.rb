@@ -109,6 +109,7 @@ class XPointer
     raise "bad element in XPointer::processStringRangeInnerR" unless (element and element.is_a?(REXML::Element))
     raise "bad newElement in XPointer::processStringRangeInnerR" unless (newElement and newElement.is_a?(REXML::Element))
     raise "bad offset in XPointer::processStringRangeInnerR" unless (offset and offset.is_a?(Integer))
+    raise "negative offset in XPointer::processStringRangeInnerR ? You're insane!" unless (offset >= 0)
     raise "bad length in XPointer::processStringRangeInnerR" unless (length and offset.is_a?(Integer))
     raise "bad tags in XPointer::processStringRangeInnerR" unless (tags and tags.is_a?(Hash))
  
