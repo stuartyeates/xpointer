@@ -105,8 +105,8 @@ class XPointer
   #tags is the hash of tags
 
   def processStringRangeInnerR(element, newElement, offset, length, forReal, tags)
-    raise "bad element in XPointer::processStringRangeInnerR" unless (element and element.is_a?(REXML::Element))
-    raise "bad newElement in XPointer::processStringRangeInnerR" unless (newElement and newElement.is_a?(REXML::Element))
+    raise "bad element in XPointer::processStringRangeInnerR \"" + element.name + "\"" unless (element and element.is_a?(REXML::Element))
+    raise "bad newElement in XPointer::processStringRangeInner \"" + newElement.name + "\"" unless (newElement and newElement.is_a?(REXML::Element))
     raise "bad offset in XPointer::processStringRangeInnerR" unless (offset and offset.is_a?(Integer))
     raise "negative offset in XPointer::processStringRangeInnerR ? You're insane!" unless (offset >= 0)
     raise "bad length in XPointer::processStringRangeInnerR" unless (length and offset.is_a?(Integer))
