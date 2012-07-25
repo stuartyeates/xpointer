@@ -91,10 +91,13 @@ class XPointer
     newElement = REXML::Element.new('CONTAINER')
     tags = {}
 
-    processStringRangeInnerR(element, newElement, offset, length, false, tags )
-    processStringRangeInnerR(element, newElement, offset, length, true, tags )
-
-    return newElement
+    if (element) then
+      processStringRangeInnerR(element, newElement, offset, length, false, tags )
+      processStringRangeInnerR(element, newElement, offset, length, true, tags )
+      return newElement
+    else 
+      return document
+    end
   end
 
 

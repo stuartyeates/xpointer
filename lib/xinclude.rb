@@ -29,18 +29,16 @@ class XInclude
     element.children.each() do |child|
       if (child.is_a?(REXML::Element)) then
         if (child.expanded_name == "xi:xinclude") then
-          child = processInclude(child)
+          newChild = processInclude(child)
+        else
+          newChild = REXML::Element.new(child)
+          copyElementWithReplacements(child,newChild)
         end
-        newChild = REXML::Element.new(child)
-        newElement.add(newChild)
-        
-        copyElementWithReplacements(child,newChild)
+        newElement.add(newChild)        
       elsif (child.is_a?(REXML::Text))
-        newChild = REXML::Text.new(child)
-        newElement.add(newChild)
+        newElement.add(REXML::Text.new(child))
       elsif (child.is_a?(REXML::Comment))
-        newChild = REXML::Comment.new(child)
-        newElement.add(newChild)
+        newElement.add(REXML::Comment.new(child))
       end
       #puts "==" + child.to_s() + "=="
     end
