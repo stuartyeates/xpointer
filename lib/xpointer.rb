@@ -13,7 +13,6 @@ class XPointer
   # an error for non-understood non-trivial xpointers. 
   def  process(document, xpointer)
     raise "Bad document passed to Xpointer::process" unless document
-    
     case xpointer
     when nil, '', '#'
       document
