@@ -16,30 +16,12 @@ class XPointer
     case xpointer
     when nil, '', '#'
       document
-    when /\Aelement\(/i
-      processElement(document, xpointer)
+    when /\Aelement\(([^\)]*)\)\z/i
+      processElementInner(document.root, $1)
     when /\Astring-range\(/i
       processStringRange(document, xpointer)
     else
       raise "Bad xpointer at XPointer::process(#{xpointer})"
-    end
-  end
-
-  # Process an element() xpointer. 
-  #
-  # strips the 'element() out and passes it to processElementInner 
-  # which does the real work
-  def processElement(document, xpointer)
-    raise "nil document at XPointer::processElement()" unless document 
-    case xpointer
-    when nil, '', '#', '/'
-      document
-    when  '/\Aelement\(\)\z'
-      document.root
-    when /\Aelement\(([^\)]*)\)\z/i
-      processElementInner(document.root, $1)
-    else
-      raise "Bad xpointer at XPointer::processElement(#{xpointer})"
     end
   end
 
