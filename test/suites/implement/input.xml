@@ -10,7 +10,7 @@
     <body>
       <div>
         <p xml:id="p1">The XPointer scheme string-range() from the TEI community has never been implemented.</p>
-        <p><xi:xinclude xpointer="string-range(p1,0,100)"/> <xi:xinclude xpointer="#string-range(p1,100,20)"/></p>
+        <p><xi:xinclude xpointer="string-range(#p1,0,100)"/> <xi:xinclude xpointer="string-range(#p1,100,20)"/></p>
       </div>
     </body>
   </text>
